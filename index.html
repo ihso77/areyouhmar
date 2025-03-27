@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سؤال هام</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            margin-top: 100px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: black;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+        }
+        button {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .yes {
+            background-color: green;
+            color: white;
+        }
+        .no {
+            background-color: red;
+            color: white;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 50px;
+            font-weight: bold;
+            color: blue;
+            display: none;
+            transition: font-size 2s ease, opacity 1s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* الألعاب النارية */
+        .fireworks {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+        .firework {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #ff0;
+            border-radius: 50%;
+            animation: fireworkAnimation 1s ease-out infinite;
+        }
+
+        @keyframes fireworkAnimation {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(100px, -100px);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-100px, 100px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>هل انت حمار ؟</h1>
+    <div class="buttons">
+        <button class="no" id="noButton" onmouseover="moveNoButton()" ontouchstart="moveNoButton()">لا</button>
+        <button class="yes" onclick="showMessage()">نعم</button>
+    </div>
+    <p id="message">تشرفنا</p>
+
+    <div class="fireworks" id="fireworks"></div>
+
+    <script>
+        function showMessage() {
+            const message = document.getElementById("message");
+            message.style.display = "block";
+            message.style.fontSize = "80px"; // يكبر النص
+
+            // ظهور الرسالة مع تأخير
+            setTimeout(() => {
+                message.style.fontSize = "20px"; // تصغير النص
+            }, 3000); // بعد 3 ثواني
+
+            // إضافة الألعاب النارية
+            for (let i = 0; i < 50; i++) {
+                createFirework();
+            }
+        }
+
+        function moveNoButton() {
+            let button = document.getElementById("noButton");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            button.style.position = 'absolute';
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+        }
+
+        function createFirework() {
+            const firework = document.createElement("div");
+            firework.classList.add("firework");
+            document.getElementById("fireworks").appendChild(firework);
+
+            // خلق حركة عشوائية للألعاب النارية
+            let x = Math.random() * 300 - 150;
+            let y = Math.random() * 300 - 150;
+
+            firework.style.left = "50%";
+            firework.style.top = "50%";
+
+            // إضافة تأثير الألعاب النارية
+            firework.style.animation = `fireworkAnimation 1s ease-out forwards`;
+            firework.style.animationDelay = Math.random() * 2 + "s";
+        }
+    </script>
+
+</body>
+</html>
